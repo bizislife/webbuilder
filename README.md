@@ -9,17 +9,13 @@ The application can be used for create website.
 Install Libs
 
 ```
-npm install --save-dev typescript rimraf
+npm install
+```
 
-npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
+Build Project
 
-# Let’s create a eslint.config.mjs configuration file using the CLI
-npx eslint --init
-
-npm install --save-dev prettier
-
-npm install --save-dev tsup
-
+```
+npm run build
 ```
 
 ## Note
