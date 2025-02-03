@@ -1,22 +1,15 @@
 {
-   "name": "ts-cjs-esm",
+   "name": "pure-ts-input",
    "version": "1.0.0",
-   "main": "./dist/cjs/index.js",
-   "module": "./dist/esm/index.js",
-   "types": "./dist/types/index.d.ts",
-   "exports": {
-      ".": {
-         "require": "./dist/cjs/index.js",
-         "import": "./dist/esm/index.js"
-      }
-   },
+   "type": "module",
+   "main": "dist/pure-input.js",
+   "types": "dist/types/input.component.d.ts",
    "files": [
       "dist"
    ],
    "scripts": {
-      "build:cjs": "tsc -p tsconfig.cjs.json",
-      "build:esm": "tsc -p tsconfig.esm.json",
-      "build": "npm run build:cjs && npm run build:esm && npm run lint && npm run test",
+      "build": "esbuild src/input.component.ts --bundle --format=esm --outfile=dist/pure-input.js --sourcemap --minify && tsc",
+      "pack": "npm run build && npm pack",
       "clean": "rimraf dist",
       "lint": "eslint .",
       "prepack": "npm run clean && npm run build",
@@ -31,6 +24,7 @@
    "description": "",
    "devDependencies": {
       "@eslint/js": "^9.19.0",
+      "esbuild": "^0.24.2",
       "eslint": "^9.19.0",
       "globals": "^15.14.0",
       "prettier": "^3.4.2",
@@ -41,6 +35,7 @@
       "vitest": "^3.0.4"
    },
    "dependencies": {
+      "pure-ts-input": "file:",
       "ts-cjs-esm": "file:"
    }
 }
