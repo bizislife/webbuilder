@@ -1,2 +1,2 @@
-export * from './input.component';
-export * from './select.component';
+export * from './components/media';
+export * from './components/basic';

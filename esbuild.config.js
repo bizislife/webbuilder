@@ -3,7 +3,7 @@ import { build } from 'esbuild';
 build({
   entryPoints: ['src/index.ts'],
   bundle: true,
-  outfile: 'dist/pure-components.js',
+  outfile: 'dist/web-components.js',
   format: 'esm',
   platform: 'browser',
   target: 'es2020',

@@ -1,14 +1,14 @@
 {
-   "name": "pure-ts-components",
+   "name": "web-components-lib",
    "version": "1.0.0",
    "type": "module",
-   "main": "dist/pure-components.js",
+   "main": "dist/web-components.js",
    "types": "dist/types/index.d.ts",
    "files": [
       "dist"
    ],
    "scripts": {
-      "build": "esbuild src/index.ts --bundle --format=esm --outfile=dist/pure-components.js --sourcemap --minify && tsc",
+      "build": "esbuild src/index.ts --bundle --format=esm --outfile=dist/web-components.js --sourcemap --minify && tsc",
       "pack": "npm run build && npm pack",
       "clean": "rimraf dist",
       "lint": "eslint .",
@@ -37,6 +37,7 @@
    "dependencies": {
       "pure-ts-components": "file:",
       "pure-ts-input": "file:",
-      "ts-cjs-esm": "file:"
+      "ts-cjs-esm": "file:",
+      "web-components-lib": "file:"
    }
 }
