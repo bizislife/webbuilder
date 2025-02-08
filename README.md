@@ -43,3 +43,8 @@ npx tsc --version
 [How to Build Dynamic Web Applications with Web Components](https://blog.pixelfreestudio.com/how-to-build-dynamic-web-applications-with-web-components/)
 
 [You're using CUSTOM_ELEMENTS_SCHEMA wrong](https://manuel-rauber.com/2021/02/23/youre-using-custom_elements_schema-wrong/)
+
+[Create Your Own Web Component and Implement It in React, Angular, or Vue](https://blog.stackademic.com/create-your-own-web-component-and-implement-it-in-react-angular-or-vue-b24ead4bb3bd)
+
+
+
