@@ -46,5 +46,8 @@ npx tsc --version
 
 [Create Your Own Web Component and Implement It in React, Angular, or Vue](https://blog.stackademic.com/create-your-own-web-component-and-implement-it-in-react-angular-or-vue-b24ead4bb3bd)
 
+## Examples
 
+[web-components-examples](https://github.com/mdn/web-components-examples)
 
+[ui5 webcomponents](https://github.com/SAP/ui5-webcomponents/tree/main)

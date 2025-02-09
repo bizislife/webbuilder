@@ -5,14 +5,27 @@
       <title>WebBuilder</title>
       <script type="module" src="./dist/web-components.js"></script>
       <style>
-         body, html {
+         body,
+         html {
             height: 100%;
             margin: 0;
+         }
+         p {
+            color: red;
          }
       </style>
    </head>
    <body>
       <p>test:</p>
-      <wc-image src="https://www.markham.ca/themes/custom/markham/images/logo.png" alt="markham.ca"></wc-image>
+      <wc-image
+         src="https://www.markham.ca/themes/custom/markham/images/logo.png"
+         alt="markham.ca"
+      ></wc-image>
+
+      <p>test 2:</p>
+      <my-custom-element title="The Custom Title"></my-custom-element>
+
+      <p>test 3: lazy load</p>
+      <lazy-component></lazy-component>
    </body>
 </html>
