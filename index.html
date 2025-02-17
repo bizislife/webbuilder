@@ -13,10 +13,34 @@
          p {
             color: red;
          }
+         labeled-checkbox {
+            border: dashed red;
+         }
+         labeled-checkbox:state(checked) {
+            border: solid;
+         }
+
+         question-box::part(checkbox) {
+            color: red;
+         }
+
+         question-box::part(checkbox):state(checked) {
+            color: green;
+         }
+
+         many-state-element:state(loading) {
+            border: dotted grey;
+         }
+         many-state-element:state(interactive) {
+            border: dashed blue;
+         }
+         many-state-element:state(complete) {
+            border: solid green;
+         }
       </style>
    </head>
    <body>
-      <p>test:</p>
+      <p>test 1:</p>
       <wc-image
          src="https://www.markham.ca/themes/custom/markham/images/logo.png"
          alt="markham.ca"
@@ -27,5 +51,29 @@
 
       <p>test 3: lazy load</p>
       <lazy-component></lazy-component>
+
+      <p>test 4: labeledCheckbox</p>
+      <labeled-checkbox></labeled-checkbox>
+      <labeled-checkbox>You need to check this</labeled-checkbox>
+
+      <p>test 5: labeledCheckbox 2</p>
+      <question-box></question-box>
+      <question-box>Continue?</question-box>
+
+      <p>test 6: many state</p>
+      <many-state-element></many-state-element>
+
+      <p>test 7: pure input</p>
+      <pure-input
+         value="username"
+         placeholder="Enter username"
+         type="password"
+      ></pure-input>
+
+      <p>test 7: text</p>
+      <biz-text>this is test</biz-text>
+
+      <p>test 8: input</p>
+      <biz-input value="asdfasdf" type="password"></biz-input>
    </body>
 </html>
