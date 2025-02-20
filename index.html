@@ -81,5 +81,13 @@
          required="true"
          placeholder="abc (def)"
       ></biz-input>
+
+      <script type="text/javascript">
+         document
+            .querySelector('biz-input')
+            .addEventListener('change', (event) => {
+               console.log('Selected value changed');
+            });
+      </script>
    </body>
 </html>

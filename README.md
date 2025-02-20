@@ -48,6 +48,8 @@ npx tsc --version
 
 [How to Use Event Handling in Web Components](https://blog.pixelfreestudio.com/how-to-use-event-handling-in-web-components/)
 
+[Event Bubbling in JavaScript – How Event Propagation Works with Examples](https://www.freecodecamp.org/news/event-bubbling-in-javascript/)
+
 ## Examples
 
 [web-components-examples](https://github.com/mdn/web-components-examples)

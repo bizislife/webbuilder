@@ -1,5 +1,10 @@
 import { MetaDataInterface } from '../models/basic.model';
 
+/**
+ * this will set metaDatas to the target (typeof BizBaseElement)
+ * @param metaData
+ * @returns
+ */
 export const bizMetaDatasDeco = (
    metaData: MetaDataInterface,
 ): ClassDecorator => {

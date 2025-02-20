@@ -1,3 +1,4 @@
+import { bizEventDeco } from '../../decorators/bizEventDeco';
 import { bizMetaDatasDeco } from '../../decorators/bizMetaDatasDeco';
 import { InputType } from '../../models/basic.model';
 import { HTMLCharConvet } from '../../utils/basic-utils';
@@ -7,6 +8,7 @@ import { BizBaseElement } from '../BizBaseElement';
    tag: 'biz-input',
    observedAttributes: ['value', 'placeholder', 'type', 'pattern', 'required'],
 })
+@bizEventDeco('change', { bubbles: true })
 export class Input extends BizBaseElement {
    constructor() {
       super();
@@ -58,6 +60,15 @@ export class Input extends BizBaseElement {
       this.#theRequired = theRequired;
    }
 
+   #getFireEventName(): string {
+      return 'change';
+   }
+
+   
+   _handleChange() {
+      this.fireEvent(this.#getFireEventName());
+   }
+
    render() {
       super.shadow.innerHTML = `
          <style>
@@ -70,11 +81,10 @@ export class Input extends BizBaseElement {
                ${this.placeholder.length > 0 ? 'placeholder=' + HTMLCharConvet(this.placeholder) : ''} 
                ${this.required ? 'required' : ''} 
                ${this.pattern.length > 0 ? 'pattern=' + this.pattern : ''}
+               onChange="${this._handleChange}"
          />
       `;
    }
-
 }
-
 
 Input.define();
