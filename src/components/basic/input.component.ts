@@ -7,12 +7,12 @@ import { BizBaseElement } from '../BizBaseElement';
    tag: 'biz-input',
    observedAttributes: ['value', 'placeholder', 'type', 'pattern', 'required'],
    events: {
-      'selectionChanged': { eventType: 'change', bubbles: false },
-      'testfocus': { eventType: 'focus', bubbles: true, cancelable: true }
+      'bizInputChange': { eventType: 'change', bubbles: false },
+      'bizInputFocus': { eventType: 'focus', bubbles: true, cancelable: true }
    }
 })
-// @bizEventDeco('selectionChanged', { bubbles: false })
-// @bizEventDeco('testfocus', { bubbles: true, cancelable: true })
+// @bizEventDeco('bizInputChange', { bubbles: false })
+// @bizEventDeco('bizInputFocus', { bubbles: true, cancelable: true })
 export class Input extends BizBaseElement {
    constructor() {
       super();
@@ -64,86 +64,32 @@ export class Input extends BizBaseElement {
       this.#theRequired = theRequired;
    }
    
-   _handleChange(e: Event) {
-
+   bizInputChange(e: Event) {
       const eventType: string = e.type || '';
-      console.log(eventType);
-      const theVal: string = (e.target as HTMLInputElement)?.value;
-      console.log('handleChange, value is: ' + theVal);
+      const target: HTMLInputElement = e.target as HTMLInputElement;
+      const theVal: string = target.value;
+      console.log(eventType + ' on ' + target?.tagName + ' value is ' + theVal);
 
-      this.fireEvent('selectionChanged');
-      // const customEvent = new CustomEvent('selectionChanged', {detail: theVal} as CustomEventInit);
-      // this.dispatchEvent(customEvent);
-
+      this.fireEvent('bizInputChange');
    }
-
-   selectionChanged(e: Event) {
+   bizInputFocus(e: FocusEvent) {
       const eventType: string = e.type || '';
-      console.log(eventType);
-      const theVal: string = (e.target as HTMLInputElement)?.value;
-      console.log('handleChange, value is: ' + theVal);
+      const target: HTMLInputElement = e.target as HTMLInputElement;
+      const theVal: string = target?.value;
+      console.log(eventType + ' on ' + target?.tagName + ' value is ' + theVal);
 
-      this.fireEvent('selectionChanged');
-   }
-   testfocus(e: Event) {
-
-      const eventType: string = e.type || '';
-      console.log(eventType);
-      const theVal: string = (e.target as HTMLInputElement)?.value;
-      console.log('_handleFocus, value is: ' + theVal);
-
-      this.fireEvent('testfocus');
-      // const customEvent = new CustomEvent('selectionChanged', {detail: theVal} as CustomEventInit);
-      // this.dispatchEvent(customEvent);
-   }
-
-   _handleFocus(e: Event) {
-
-      const eventType: string = e.type || '';
-      console.log(eventType);
-      const theVal: string = (e.target as HTMLInputElement)?.value;
-      console.log('_handleFocus, value is: ' + theVal);
-
-      this.fireEvent('testfocus');
-      // const customEvent = new CustomEvent('selectionChanged', {detail: theVal} as CustomEventInit);
-      // this.dispatchEvent(customEvent);
-
+      this.fireEvent('bizInputFocus');
    }
 
    _handleInput(e: Event) {
       const eventType: string = e.type || '';
-      const inputType: string = (e as InputEvent).inputType || '';
-      console.log(eventType + ' | ' + inputType);
-      const theVal: string = this.shadow.querySelector('input')?.value??'';
+      const target: HTMLInputElement = e.target as HTMLInputElement;
+      const theVal: string = target.value;
+      // const theVal: string = this.shadow.querySelector('input')?.value??'';
+      console.log(eventType + ' on ' + target?.tagName + ' value is ' + theVal);
 
       this.setAttribute('value', theVal);
 
-   }
-
-   _onFocusOut(e: FocusEvent) {
-      const toBeFocused = e?.relatedTarget as HTMLElement;
-      const theVal: string = this.shadow.querySelector('input')?.value??'';
-
-      console.log("... focus out value: " + theVal);
-
-      this.setAttribute('value', theVal);
-   }
-
-   // _onKeyUp(e: KeyboardEvent) {
-   //    this.value = (e.target as HTMLInputElement).value;
-   // }
-
-   _runEventListenerByEventName(name: string, e: Event) {
-      switch(name) {
-         case 'selectionChanged':
-            this._handleChange(e);
-            break;
-         case 'testfocus':
-            this._handleFocus(e);
-            break;
-         default:
-            console.log('sory, the event name is not in the list');
-      }
    }
 
    render() {
@@ -167,16 +113,11 @@ export class Input extends BizBaseElement {
       const eventProperty: EventProperty = (this.constructor as typeof Input).getEvents()??{};
       if (eventProperty) {
          Object.entries(eventProperty).forEach(([key, data]) => {
-
             const theFunc = (this as Record<string, unknown>)[key];
-
-
             // const func = eval('this.' + key);
             const func = (0, eval)(theFunc as string);
             // const func = new Function(`this.${key}()`);
-            // const func = new Function(`const ${key} = `+ key);
             theInput?.addEventListener(data.eventType, func.bind(this));
-            // theInput?.addEventListener(data.eventType, this._handleChange.bind(this));
          })
       }
 

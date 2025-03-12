@@ -75,27 +75,33 @@
 
       <p>test 8: input</p>
       <biz-input id="firstBizInput"
-         value="DSAF"
+         value="111"
          type="text"
          pattern="\w{3,16}"
          required="true"
-         placeholder="abc (def)"
+         placeholder="please input number"
+      ></biz-input>
+
+      <biz-input id="secondBizInput"
+         value="aaa"
+         type="text"
+         pattern="\w{3,16}"
+         required="true"
+         placeholder="please input charactor"
       ></biz-input>
 
       <script>
-
-         // document
-         //    .querySelector('biz-input')
-         //    .addEventListener('change', (event) => {
-         //       console.log('Selected value changed');
-         //    });
 
          document.querySelector('#firstBizInput').addEventListener('input', (event => {
             console.log('Event: input => input value changed to: ' + event.target.value);
          }))
 
-         document.querySelector('#firstBizInput').addEventListener('selectionChanged', (event => {
+         document.querySelector('#firstBizInput').addEventListener('bizInputChange', (event => {
             console.log('Event: change => input value changed to: ' + event.target.value);
+         }))
+
+         document.querySelector('#firstBizInput').addEventListener('bizInputFocus', (event => {
+            console.log('Event: focus => input value is: ' + event.target.value);
          }))
 
       </script>
