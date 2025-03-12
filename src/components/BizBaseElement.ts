@@ -22,13 +22,17 @@ export abstract class BizBaseElement extends HTMLElement {
       return {} as MetaDataInterface;
    }
 
-   getEvents(): EventProperty | undefined {
-      return BizBaseElement.getMetaDatas()!.events;
+   static getEvents(): EventProperty | undefined {
+      return this.getMetaDatas()!.events;
    }
 
-   getEventInit(name: string): EventInit {
+   static getEventInit(name: string): EventInit {
       const eventsMap: EventProperty | undefined = this.getEvents();
       return eventsMap?.[name] ?? {};
+
+      // console.log('testing...');
+
+      // return {'bubbles': true} as EventInit;
    }
 
    /**
@@ -42,6 +46,8 @@ export abstract class BizBaseElement extends HTMLElement {
    }
 
    render(): void {}
+
+   eventBind(): void {}
 
    /**
     * set newVal to observedAttribute
@@ -60,6 +66,7 @@ export abstract class BizBaseElement extends HTMLElement {
 
    connectedCallback() {
       this.render();
+      // this.eventBind();
    }
 
    /**
@@ -69,13 +76,17 @@ export abstract class BizBaseElement extends HTMLElement {
     * @returns
     */
    fireEvent<T>(name: string, data?: T) {
-      const eventInit = this.getEventInit(name);
+
+      // console.log('test');
+      const ctor = this.constructor as typeof BizBaseElement;
+
+      const eventInit = ctor.getEventInit(name);
 
       const customEvent = new CustomEvent(name, {
          detail: data,
          composed: false,
          bubbles: eventInit.bubbles ?? true,
-         cancelable: eventInit.cancelable ?? true,
+         cancelable: eventInit.cancelable ?? false,
       });
 
       return this.dispatchEvent(customEvent);

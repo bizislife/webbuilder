@@ -46,7 +46,7 @@ npx tsc --version
 
 [Create Your Own Web Component and Implement It in React, Angular, or Vue](https://blog.stackademic.com/create-your-own-web-component-and-implement-it-in-react-angular-or-vue-b24ead4bb3bd)
 
-[How to Use Event Handling in Web Components](https://blog.pixelfreestudio.com/how-to-use-event-handling-in-web-components/)
+[** How to Use Event Handling in Web Components ** ](https://blog.pixelfreestudio.com/how-to-use-event-handling-in-web-components/)
 
 [Event Bubbling in JavaScript – How Event Propagation Works with Examples](https://www.freecodecamp.org/news/event-bubbling-in-javascript/)
 

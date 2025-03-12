@@ -74,7 +74,7 @@
       <biz-text>this is test</biz-text>
 
       <p>test 8: input</p>
-      <biz-input
+      <biz-input id="firstBizInput"
          value="DSAF"
          type="text"
          pattern="\w{3,16}"
@@ -82,12 +82,22 @@
          placeholder="abc (def)"
       ></biz-input>
 
-      <script type="text/javascript">
-         document
-            .querySelector('biz-input')
-            .addEventListener('change', (event) => {
-               console.log('Selected value changed');
-            });
+      <script>
+
+         // document
+         //    .querySelector('biz-input')
+         //    .addEventListener('change', (event) => {
+         //       console.log('Selected value changed');
+         //    });
+
+         document.querySelector('#firstBizInput').addEventListener('input', (event => {
+            console.log('Event: input => input value changed to: ' + event.target.value);
+         }))
+
+         document.querySelector('#firstBizInput').addEventListener('selectionChanged', (event => {
+            console.log('Event: change => input value changed to: ' + event.target.value);
+         }))
+
       </script>
    </body>
 </html>
