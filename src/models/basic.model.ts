@@ -10,4 +10,8 @@ export enum InputType {
    Password = 'Password',
 }
 
-export type EventProperty = Record<string, EventInit>;
+export interface BizEventInit extends EventInit{
+   eventType: string;
+}
+
+export type EventProperty = Record<string, BizEventInit>;

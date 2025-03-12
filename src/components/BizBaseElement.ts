@@ -29,10 +29,6 @@ export abstract class BizBaseElement extends HTMLElement {
    static getEventInit(name: string): EventInit {
       const eventsMap: EventProperty | undefined = this.getEvents();
       return eventsMap?.[name] ?? {};
-
-      // console.log('testing...');
-
-      // return {'bubbles': true} as EventInit;
    }
 
    /**

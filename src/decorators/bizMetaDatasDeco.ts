@@ -21,5 +21,9 @@ export const bizMetaDatasDeco = (
       if (metaData.observedAttributes) {
          target.metaData.observedAttributes = [...metaData.observedAttributes];
       }
+
+      if (metaData.events) {
+         target.metaData.events = metaData.events;
+      }
    };
 };
