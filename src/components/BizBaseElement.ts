@@ -42,6 +42,7 @@ export abstract class BizBaseElement extends HTMLElement {
    }
 
    render(): void {}
+   clean(): void {}
 
    eventBind(): void {}
 
@@ -63,6 +64,10 @@ export abstract class BizBaseElement extends HTMLElement {
    connectedCallback() {
       this.render();
       // this.eventBind();
+   }
+
+   disconnectedCallback() {
+      this.clean();
    }
 
    /**

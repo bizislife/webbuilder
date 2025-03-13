@@ -73,22 +73,26 @@
       <p>test 7: text</p>
       <biz-text>this is test</biz-text>
 
-      <p>test 8: input</p>
-      <biz-input id="firstBizInput"
-         value="111"
-         type="text"
-         pattern="\w{3,16}"
-         required="true"
-         placeholder="please input number"
-      ></biz-input>
+      <div style="padding: 20px; background-color: aquamarine;" onclick="(function(){console.log('..... div clicked ....')})()">
 
-      <biz-input id="secondBizInput"
-         value="aaa"
-         type="text"
-         pattern="\w{3,16}"
-         required="true"
-         placeholder="please input charactor"
-      ></biz-input>
+         <p>test 8: input</p>
+         <biz-input id="firstBizInput"
+            value="111"
+            type="text"
+            pattern="\w{3,16}"
+            required="true"
+            placeholder="please input number"
+         ></biz-input>
+   
+         <biz-input id="secondBizInput"
+            value="aaa"
+            type="text"
+            pattern="\w{3,16}"
+            required="true"
+            placeholder="please input charactor"
+         ></biz-input>
+   
+      </div>
 
       <script>
 
