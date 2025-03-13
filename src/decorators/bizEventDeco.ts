@@ -1,3 +1,5 @@
+import { BizEventInit } from "../models/basic.model";
+
 /**
  * this will set evnet with data to the target.metaData.events, where target is typeof BizBaseelement
  * @param name
@@ -6,7 +8,7 @@
  */
 export const bizEventDeco = (
    name: string,
-   data: EventInit = {},
+   data: BizEventInit,
 ): ClassDecorator => {
    // eslint-disable-next-line
    return (target: any) => {

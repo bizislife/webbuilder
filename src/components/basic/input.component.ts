@@ -1,18 +1,32 @@
 import { bizMetaDatasDeco } from '../../decorators';
-import { EventProperty, InputType } from '../../models/basic.model';
+import { BizCustomEvent, EventProperty, InputType } from '../../models/basic.model';
 import { HTMLCharConvet } from '../../utils/basic-utils';
 import { BizBaseElement } from '../BizBaseElement';
+
+// enum BIZ_INPUT_EVENT {
+//    CHANGE = 'change',
+//    BIZINPUTCHANGE = 'bizInputChange',
+//    BIZINPUTFOCUS = 'bizInputFocus',
+// }
+
+// type BIZ_INPUT_EVENT = 'CHANGE' | 'BIZINPUTCHANGE' | 'BIZINPUTFOCUS';
+
+const BIZ_INPUT_EVENT: Record<string, BizCustomEvent> = {
+   // INPUT : {customeEventName: 'input', eventName: 'input'},
+   BizInputChange : {customeEventName: 'BizInputChange', eventType: 'change', functionName: '_bizInputChange'},
+   BizInputFocus : {customeEventName: 'BizInputFocus', eventType: 'focus', functionName: '_bizInputFocus'},
+}
 
 @bizMetaDatasDeco({
    tag: 'biz-input',
    observedAttributes: ['value', 'placeholder', 'type', 'pattern', 'required'],
    events: {
-      'bizInputChange': { eventType: 'change', bubbles: false },
-      'bizInputFocus': { eventType: 'focus', bubbles: true, cancelable: true }
+      [BIZ_INPUT_EVENT.BizInputChange.customeEventName]: { eventType: BIZ_INPUT_EVENT.BizInputChange.eventType, bubbles: false },
+      [BIZ_INPUT_EVENT.BizInputFocus.customeEventName]: { eventType: BIZ_INPUT_EVENT.BizInputFocus.eventType, bubbles: true, cancelable: true }
    }
 })
-// @bizEventDeco('bizInputChange', { bubbles: false })
-// @bizEventDeco('bizInputFocus', { bubbles: true, cancelable: true })
+// @bizEventDeco(BIZ_INPUT_EVENT.BizInputChange.customeEventName, { eventType: BIZ_INPUT_EVENT.BizInputChange.eventName, bubbles: false })
+// @bizEventDeco(BIZ_INPUT_EVENT.BizInputFocus.customeEventName, { eventType: BIZ_INPUT_EVENT.BizInputFocus.eventName, bubbles: true, cancelable: true })
 export class Input extends BizBaseElement {
    constructor() {
       super();
@@ -64,21 +78,21 @@ export class Input extends BizBaseElement {
       this.#theRequired = theRequired;
    }
    
-   bizInputChange(e: Event) {
+   _bizInputChange(e: Event) {
       const eventType: string = e.type || '';
       const target: HTMLInputElement = e.target as HTMLInputElement;
       const theVal: string = target.value;
       console.log(eventType + ' on ' + target?.tagName + ' value is ' + theVal);
 
-      this.fireEvent('bizInputChange');
+      this.fireEvent(BIZ_INPUT_EVENT.BizInputChange.customeEventName, theVal);
    }
-   bizInputFocus(e: FocusEvent) {
+   _bizInputFocus(e: FocusEvent) {
       const eventType: string = e.type || '';
       const target: HTMLInputElement = e.target as HTMLInputElement;
       const theVal: string = target?.value;
       console.log(eventType + ' on ' + target?.tagName + ' value is ' + theVal);
 
-      this.fireEvent('bizInputFocus');
+      this.fireEvent(BIZ_INPUT_EVENT.BizInputFocus.customeEventName, theVal);
    }
 
    _handleInput(e: Event) {
@@ -113,11 +127,15 @@ export class Input extends BizBaseElement {
       const eventProperty: EventProperty = (this.constructor as typeof Input).getEvents()??{};
       if (eventProperty) {
          Object.entries(eventProperty).forEach(([key, data]) => {
-            const theFunc = (this as Record<string, unknown>)[key];
-            // const func = eval('this.' + key);
-            const func = (0, eval)(theFunc as string);
-            // const func = new Function(`this.${key}()`);
-            theInput?.addEventListener(data.eventType, func.bind(this));
+
+            const funcName = BIZ_INPUT_EVENT[key].functionName??'';
+            if (funcName) {
+               const theFunc = (this as Record<string, unknown>)[funcName];
+               // const func = eval('this.' + key);
+               const func = (0, eval)(theFunc as string);
+               // const func = new Function(`this.${key}()`);
+               theInput?.addEventListener(data.eventType, func.bind(this));
+            }
          })
       }
 
