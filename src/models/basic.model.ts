@@ -10,7 +10,12 @@ export interface MetaDataInterface {
    events?: EventProperty;
 }
 
-export interface BizEventInit extends EventInit{
+/**
+ * For EventInit:
+ *    without specific reason, make bubbles=false always.'
+ *    without specific reason, make cancelable=true always, so the user can disable default function by 'event.preventDefault()'
+ */
+export interface BizEventInit extends EventInit {
    eventType: string;
 }
 

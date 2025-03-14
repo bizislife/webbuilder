@@ -18,6 +18,26 @@ Build Project
 npm run build
 ```
 
+Package Project
+
+```
+npm run pack
+```
+
+Note: this will package the project into dist folder
+
+Clean Project
+
+```
+npm run clean
+```
+
+Format Code By Prettier
+
+```
+npm run format
+```
+
 ## Note
 
 The application suppost CommonJS and ESM.

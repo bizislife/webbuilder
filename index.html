@@ -70,44 +70,168 @@
          type="password"
       ></pure-input>
 
-      <p>test 7: text</p>
-      <biz-text>this is test</biz-text>
-
-      <div style="padding: 20px; background-color: aquamarine;" onclick="(function(){console.log('..... div clicked ....')})()">
-
-         <p>test 8: input</p>
-         <biz-input id="firstBizInput"
+      <p>test 7-1: text</p>
+      <div
+         id="div1"
+         style="padding: 20px; background-color: aquamarine"
+         onclick="(function(){console.log('..... div1 clicked ....')})()"
+      >
+         <div
+            id="div2"
+            style="padding: 20px; background-color: rgb(219, 202, 218)"
+            onclick="(function(){console.log('..... div2 clicked ....')})()"
+         >
+            <biz-text id="bizText1">bizText1</biz-text>
+         </div>
+      </div>
+      <p>test 7-2: text</p>
+      <div
+         style="padding: 20px; background-color: beige"
+         onclick="(function(){console.log('..... div clicked .....')})()"
+      >
+         <biz-text id="bizText2"
+            >bizText2<biz-text id="bizText3">bizText3</biz-text></biz-text
+         >
+      </div>
+      <p>test 8: input</p>
+      <div
+         style="padding: 20px; border: 1px solid"
+         onclick="(function(){console.log('..... div clicked ....')})()"
+      >
+         <biz-input
+            id="firstBizInput"
             value="111"
             type="text"
             pattern="\w{3,16}"
             required="true"
             placeholder="please input number"
          ></biz-input>
-   
-         <biz-input id="secondBizInput"
+
+         <biz-input
+            id="secondBizInput"
             value="aaa"
             type="text"
             pattern="\w{3,16}"
             required="true"
             placeholder="please input charactor"
          ></biz-input>
-   
+      </div>
+
+      <p>test 9-1: custom event</p>
+      <div id="test9">
+         <button id="elem1" onclick="console.log('auto clicked');">
+            Autoclick
+         </button>
+         <p id="elem2">Hello from the script</p>
+      </div>
+
+      <p>test 9-2: custom event</p>
+      <div>
+         <pre id="rabbit">
+            |\   /|
+             \|_|/
+             /. .\
+            =\_Y_/=
+             {>o<}
+         </pre>
+         <button onclick="hideRabbit()">Hide</button>
       </div>
 
       <script>
+         // let event = new Event('click');
+         let event1 = new CustomEvent('click');
+         elem1.dispatchEvent(event1);
 
-         document.querySelector('#firstBizInput').addEventListener('input', (event => {
-            console.log('Event: input => input value changed to: ' + event.target.value);
-         }))
+         test9.addEventListener('hello', function (event) {
+            console.log('hello from target: ' + event.target.tagName);
+            console.log(
+               'hello from currentTarget: ' + event.currentTarget.tagName,
+            );
+         });
+         // let event2 = new Event('hello', {bubbles: false});
+         let event2 = new CustomEvent('hello', { bubbles: true });
+         event2.stopPropagation();
+         elem2.dispatchEvent(event2);
 
-         document.querySelector('#firstBizInput').addEventListener('BizInputChange', (event => {
-            console.log('Event: change => input value changed to: ' + event.target.value);
-         }))
+         function hideRabbit() {
+            let event = new CustomEvent('hide', { cancelable: true });
+            if (!rabbit.dispatchEvent(event)) {
+               console.log('the hide action was prevented!');
+            } else {
+               rabbit.hidden = true;
+            }
+         }
+         rabbit.addEventListener('hide', function (event) {
+            event.preventDefault();
+         });
 
-         document.querySelector('#firstBizInput').addEventListener('BizInputFocus', (event => {
-            console.log('Event: focus => input value is: ' + event.target.value);
-         }))
+         document
+            .querySelector('#firstBizInput')
+            .addEventListener('input', (event) => {
+               console.log(
+                  'Event: input => input value changed to: ' +
+                     event.target.value,
+               );
+            });
 
+         document
+            .querySelector('#firstBizInput')
+            .addEventListener('BizInputChange', (event) => {
+               console.log(
+                  'Event: change => input value changed to: ' +
+                     event.target.value,
+               );
+            });
+
+         document
+            .querySelector('#firstBizInput')
+            .addEventListener('BizInputFocus', (event) => {
+               console.log(
+                  'Event: focus => input value is: ' + event.target.value,
+               );
+            });
+
+         document
+            .querySelector('#bizText1')
+            .addEventListener('click', (event) => {
+               console.log('Event: text click');
+               // event.stopPropagation();
+               // event.stopImmediatePropagation();
+            });
+
+         document
+            .querySelector('#bizText1')
+            .addEventListener('BizClick', (event) => {
+               console.log('Event: text bizText1');
+               // event.stopPropagation();
+               // event.stopImmediatePropagation();
+            });
+
+         document
+            .querySelector('#bizText2')
+            .addEventListener('BizClick', (event) => {
+               event.preventDefault();
+               console.log('Event: text bizText2');
+            });
+
+         document
+            .querySelector('#bizText3')
+            .addEventListener('BizClick', (event) => {
+               event.preventDefault();
+               console.log('Event: text bizText3');
+               // event.stopPropagation();
+            });
+
+         document.querySelector('#div1').addEventListener('click', (event) => {
+            console.log('Event: div1 click');
+            // event.stopPropagation();
+         });
+
+         document.querySelector('#div2').addEventListener('click', (event) => {
+            console.log('Event: div2 click');
+            // event.stopPropagation();
+            // event.stopImmediatePropagation();
+         });
       </script>
    </body>
 </html>

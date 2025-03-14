@@ -1,4 +1,4 @@
-import { BizEventInit } from "../models/basic.model";
+import { BizEventInit } from '../models/basic.model';
 
 /**
  * this will set evnet with data to the target.metaData.events, where target is typeof BizBaseelement

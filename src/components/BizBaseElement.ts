@@ -76,8 +76,7 @@ export abstract class BizBaseElement extends HTMLElement {
     * @param data
     * @returns
     */
-   fireEvent<T>(name: string, data?: T) {
-
+   fireEvent<T>(name: string, data?: T): boolean {
       // console.log('test');
       const ctor = this.constructor as typeof BizBaseElement;
 
@@ -90,6 +89,7 @@ export abstract class BizBaseElement extends HTMLElement {
          cancelable: eventInit.cancelable ?? false,
       });
 
+      // will return false if 'cancelable = true'
       return this.dispatchEvent(customEvent);
    }
 
